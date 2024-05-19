@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed;
-    bool isJump = true;
-    bool isDead = false;
     private Rigidbody2D body;
     // Start is called before the first frame update
     void Start()
