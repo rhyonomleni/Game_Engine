@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private Animator anim;
     private bool grounded;
+    private int jumpCount;
+    [SerializeField] private int jumpHeight;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(-2, 2, 1);
         }
 
-        if (Input.GetKey(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space)){
             Jump();
         }
 
@@ -41,15 +43,21 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump(){
-        body.velocity = new Vector2(body.velocity.x, speed);
-        anim.SetTrigger("jump");
-        grounded = false;
+        if (grounded || jumpCount < 2)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpHeight);
+            anim.SetTrigger("jump");
+            grounded = false;
+            jumpCount++;
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision){
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
+            jumpCount = 0;
         }
     }
 }
