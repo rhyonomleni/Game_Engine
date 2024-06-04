@@ -37,9 +37,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)){
             Jump();
         }
+        if (Input.GetKeyDown(KeyCode.J)){
+            anim.SetBool("run", false);
+            Attack();
+        }
 
         anim.SetBool("run", horizontalInput != 0);
         anim.SetBool("grounded", grounded);
+    }
+
+    private void Attack(){
+        anim.SetTrigger("attack");
     }
 
     private void Jump(){
